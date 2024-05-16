@@ -9,14 +9,16 @@ class Patient {
     }
  
     public function fetchAllPatients($firstName) {
+        
         $sql = "SELECT id, first_name, surname, FORMAT(date_of_birth, 'yyyy-MM-dd') AS formatted_date_of_birth, age, total_score, FORMAT(created_at, 'yyyy-MM-dd') AS formatted_created_at FROM patients";
         if ($firstName !== null) {
             $sql .= " WHERE first_name LIKE ?";
             $params[] = "%$firstName%";
         }
     
-        $stmt = sqlsrv_query($this->conn, $sql);
+        $stmt = sqlsrv_query($this->conn, $sql, $params);
         if ($stmt === false) {
+            return $firstName;
             die(print_r(sqlsrv_errors(), true));
         }
 
@@ -24,7 +26,6 @@ class Patient {
         while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
             $patients[] = $row;
         }
-
         return $patients;
     }
     public function fetchPatientQAById($id)
@@ -37,11 +38,12 @@ class Patient {
             die(print_r(sqlsrv_errors(), true)); 
         }
 
-        $patientQA = null;
-        if ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-            $patientQA = $row;
+        $patientsQA = [];
+        while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+            $patientsQA[] = $row;
         }
-        return $patientQA;
+
+        return $patientsQA;
     }
     public function fetchPatientById($id) {  
         $sql = "SELECT *,FORMAT(date_of_birth, 'yyyy-MM-dd') AS date_of_birth FROM patients WHERE id = ?";
@@ -62,7 +64,7 @@ class Patient {
         return $patient;
         
     }
-
+    
     public function updatePatient($data) {
         $sql = "UPDATE patients SET first_name = ?, surname = ?, date_of_birth = ?, age = ?, total_score = ? WHERE id = ?";
         $params = [$data['firstName'], $data['surName'], $data['dateOfBirth'], $data['age'], $data['totalScore'], $data['patientId']];
@@ -75,14 +77,24 @@ class Patient {
         return true;
     }
 
-    public function deletePatient($id) {
+    public function deletePatientById($id) {
+
+        $sql2 = "DELETE FROM patient_responses WHERE patient_id = ?";
+        $params2 = [$id];
+        $stmt2 = sqlsrv_query($this->conn, $sql2, $params2);
+
+        if ($stmt2 === false) {
+            die(print_r(sqlsrv_errors(), true));
+        }
+
         $sql = "DELETE FROM patients WHERE id = ?";
         $params = [$id];
         $stmt = sqlsrv_query($this->conn, $sql, $params);
-
         if ($stmt === false) {
             die(print_r(sqlsrv_errors(), true));
         }
+
+        
 
         return true;
     }
