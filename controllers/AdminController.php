@@ -18,6 +18,9 @@ class AdminController {
     public function getPatientQAById($id) {
         return $this->patientModel->fetchPatientQAById($id);
     }
+    public function deletePatientById($id) {
+        return $this->patientModel->deletePatientById($id);
+    }
     
 
     public function updatePatient($data) { 

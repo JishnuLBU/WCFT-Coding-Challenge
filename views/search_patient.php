@@ -1,9 +1,8 @@
 <?php
 require_once '../controllers/AdminController.php';
-
-if (isset($_GET['firstName'])) { 
+if (isset($_POST['firstName'])) { 
     $controller = new AdminController();
-    $patients = $controller->getAllPatients($_GET['firstName']);
+    $patients= $controller->getAllPatients($_POST['firstName']);
     echo json_encode($patients);
 }
 ?>

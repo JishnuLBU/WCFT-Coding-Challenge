@@ -12,6 +12,9 @@ class AuthController
 
     public function login()
     { 
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         $email = $_POST['email'];
         $password = $_POST['password'];        
 
@@ -33,8 +36,7 @@ class AuthController
             // Verify the password
             if (password_verify($password, $hashedPassword)) {
                 // Password is correct, start a session
-                session_start();
-                $_SESSION['email'] = $email;
+                 $_SESSION['email'] = $email;
                 $redirect_url="admin_home.php";
                 // Redirect to the dashboard or another authenticated page
                 echo json_encode(array("success" => true, "message" => "Login successful","redirect_url" => $redirect_url));
