@@ -72,7 +72,7 @@ $questions = $controller->getQuestions();
                                                         <?php echo htmlspecialchars($question['question_text']) . ' (' . htmlspecialchars($question['max_score']) . ')'; ?>
                                                     </label>
                                                     <div class="col-sm-2">
-                                                        <input type="number" class="form-control number-field calculateTotScore" id="question_<?php echo $question['id']; ?>" name="question_<?php echo $question['id']; ?>" min="0" max="<?php echo htmlspecialchars($question['max_score']); ?>" required>
+                                                        <input type="number" class="form-control number-field <?php if($question['max_score'] !=100) echo 'calculateTotScore' ?>" id="question_<?php echo $question['id']; ?>" name="question_<?php echo $question['id']; ?>" min="0" max="<?php echo htmlspecialchars($question['max_score']); ?>" required>
                                                     </div>
                                                 </div>
                                             <?php } ?>

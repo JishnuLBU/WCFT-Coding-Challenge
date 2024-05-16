@@ -1,4 +1,5 @@
 <?php
+
 require_once '../controllers/AdminController.php';
 
 $controller = new AdminController();
@@ -79,7 +80,7 @@ $patients = $controller->getAllPatients();
               <a href="#" class="search-toggle iq-waves-effect d-flex align-items-center">
                 <img src="../public/assets/images/user/1.jpg" class="img-fluid rounded mr-3" alt="user" />
                 <div class="caption">
-                  <h6 class="mb-0 line-height">John Doe</h6>
+                  <h6 class="mb-0 line-height">Admin</h6>
                   <p class="mb-0">Admin</p>
                 </div>
               </a>
@@ -87,7 +88,7 @@ $patients = $controller->getAllPatients();
                 <div class="iq-card shadow-none m-0">
                   <div class="iq-card-body p-0">
                     <div class="d-inline-block w-100 text-center p-3">
-                      <a class="bg-primary iq-sign-btn" href="sign-in.html" role="button">Sign out<i class="ri-login-box-line ml-2"></i></a>
+                      <a class="bg-primary iq-sign-btn" href="sign_out.php" role="button">Sign out<i class="ri-login-box-line ml-2"></i></a>
                     </div>
                   </div>
                 </div>
@@ -98,9 +99,9 @@ $patients = $controller->getAllPatients();
       </div>
     </div>
     <!-- TOP Nav Bar END -->
-
+    <form class="form-horizontal" id="editForm" action="">
     <div class="modal fade bd-example-modal-lg" id="viewModal" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Patient Details</h5>
@@ -111,40 +112,41 @@ $patients = $controller->getAllPatients();
           <div class="modal-body">
             <div class="form-horizontal" action="">
               <div class="form-group row">
-                <label class="control-label col-sm-4 align-self-center mb-0" for="firstName">First Name :</label>
-                <div class="col-sm-8">
-                  <input type="text" class="form-control" id="firstName_view" name="firstName_view" disabled>
+                <label class="control-label col-sm-6 align-self-center mb-0" for="firstName">First Name :</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control" id="firstName_view" name="firstName" disabled>
 
 
                 </div>
               </div>
 
               <div class="form-group row">
-                <label class="control-label col-sm-4 align-self-center mb-0" for="surname">SurName :</label>
-                <div class="col-sm-8">
+                <label class="control-label col-sm-6 align-self-center mb-0" for="surname">SurName :</label>
+                <div class="col-sm-6">
                   <input type="text" class="form-control" id="surName_view" name="surName" disabled>
                 </div>
               </div>
 
               <div class="form-group row">
-                <label class="control-label col-sm-4 align-self-center mb-0" for="date_of_birth">Date of Birth :</label>
-                <div class="col-sm-8">
+                <label class="control-label col-sm-6 align-self-center mb-0" for="date_of_birth">Date of Birth :</label>
+                <div class="col-sm-6">
                   <input type="text" class="form-control" id="dateOfBirth_view" name="dateOfBirth" placeholder="2019/12/01" disabled />
                 </div>
               </div>
 
               <div class="form-group row">
-                <label class="control-label col-sm-4 align-self-center mb-0" for="age">Age :</label>
-                <div class="col-sm-8">
+                <label class="control-label col-sm-6 align-self-center mb-0" for="age">Age :</label>
+                <div class="col-sm-6">
                   <input type="text" class="form-control" id="age_view" name="age" placeholder="49" disabled />
                 </div>
               </div>
               <div class="form-group row">
-                <label class="control-label col-sm-4 align-self-center mb-0" for="age">Total Score :</label>
-                <div class="col-sm-8">
+                <label class="control-label col-sm-6 align-self-center mb-0" for="age">Total Score :</label>
+                <div class="col-sm-6">
                   <input type="text" class="form-control" id="totalScore_view" name="totalScore" disabled />
                 </div>
               </div>
+              <input type="text" class="form-control" id="patientId" name="patientId" hidden />
               <div id ="QA-div">
 
               </div>
@@ -152,10 +154,21 @@ $patients = $controller->getAllPatients();
               
             </div>
           </div>
+          <div class="modal-footer d-flex justify-content-between">
+     
+            <div>
+              <button type="submit" class="btn btn-primary" id="editButton" style="display: none;">Submit</button>
+              <button type="button" class="btn btn-primary" id="edit">Edit</button>
+              <button type="button" class="btn btn-outline-secondary"> Cancel </button>
+            </div>
+
+            <!--right btns ends-->
+
+           </div>
         </div>
       </div>
     </div>
-
+    </form>
     <div class="modal fade bd-example-modal-lg" id="editModal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -166,7 +179,7 @@ $patients = $controller->getAllPatients();
             </button>
           </div>
           <div class="modal-body">
-            <form id="editForm">
+            <form id="editForm1">
               <div class="form-horizontal" action="">
                 <div class="form-group row">
                   <label class="control-label col-sm-4 align-self-center mb-0" for="firstName">First Name :</label>
@@ -201,7 +214,7 @@ $patients = $controller->getAllPatients();
                   <label class="control-label col-sm-4 align-self-center mb-0" for="age">Total Score :</label>
                   <div class="col-sm-8">
                     <input type="text" class="form-control" id="totalScore" name="totalScore" />
-                    <input type="text" class="form-control" id="patientId" name="patientId" hidden />
+                    <input type="text" class="form-control" id="patientId1" name="patientId" hidden />
                   </div>
 
                 </div>
@@ -298,23 +311,12 @@ $patients = $controller->getAllPatients();
                         <form class="mr-3 position-relative filter-head" id="filterForm">
                           <div class="form-group mb-0">
                             <label for="name">Name</label>
-                            <input type="search" class="form-control" id="name" placeholder="Search" aria-controls="user-list-table" />
+                            <input type="text" class="form-control" id="name-search" placeholder="Search" aria-controls="user-list-table" />
                           </div>
 
-                          <!-- <div class="form-group">
-                              <label for="exampleInputdate"
-                                >Date of Birth</label
-                              >
-                              <input
-                                type="date"
-                                class="form-control"
-                                id="exampleInputdate"
-                                value=""
-                              />
-                            </div> -->
 
                           <div class="form-group">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="button"  id="search" class="btn btn-primary">
                               Filter
                             </button>
                           </div>
@@ -353,8 +355,7 @@ $patients = $controller->getAllPatients();
                               <a class="iq-bg-primary" data-toggle="modal" data-target="#viewModal" data-placement="top" title="" data-original-title="View" data-id="<?php echo $patient['id']; ?>" id="viewButton" href="#">
                                 <i class="ri-eye-line"></i>
                               </a>
-                              <a class="iq-bg-primary" id="editButton" data-toggle="modal" data-target="#editModal" data-placement="top" data-id="<?php echo $patient['id']; ?>" title="" data-original-title="Edit" href="#"><i class="ri-pencil-line"></i></a>
-                              <a class="iq-bg-primary" data-toggle="tooltip" data-id="<?php echo $patient['id']; ?>" data-placement="top" title="" data-original-title="Delete" href="#"><i class="ri-delete-bin-line"></i></a>
+                              <a class="iq-bg-primary delete-btn" data-toggle="tooltip" data-id="<?php echo $patient['id']; ?>" data-placement="top" title="" data-original-title="Delete" href="#"><i class="ri-delete-bin-line"></i></a>
                           </td>
                         </tr>
                       <?php } ?>
@@ -362,32 +363,7 @@ $patients = $controller->getAllPatients();
 
                   </table>
                 </div>
-                <div class="row justify-content-between mt-3">
-                  <div id="user-list-page-info" class="col-md-6">
-                    <span>Showing 1 to 10 of 5 entries</span>
-                  </div>
-                  <div class="col-md-6">
-                    <nav aria-label="Page navigation example">
-                      <ul class="pagination justify-content-end mb-0">
-                        <li class="page-item disabled">
-                          <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                        </li>
-                        <li class="page-item active">
-                          <a class="page-link" href="#">1</a>
-                        </li>
-                        <li class="page-item">
-                          <a class="page-link" href="#">2</a>
-                        </li>
-                        <li class="page-item">
-                          <a class="page-link" href="#">3</a>
-                        </li>
-                        <li class="page-item">
-                          <a class="page-link" href="#">Next</a>
-                        </li>
-                      </ul>
-                    </nav>
-                  </div>
-                </div>
+                
               </div>
             </div>
           </div>
@@ -421,6 +397,7 @@ $patients = $controller->getAllPatients();
   <script src="../public/assets/js/custom.js"></script>
   <script>
     $(document).ready(function() {
+      
       $(document).on('click', '#viewButton', function() {
         var id = $(this).data('id');
         $.ajax({
@@ -431,42 +408,24 @@ $patients = $controller->getAllPatients();
           },
           success: function(data) {
             var patientData = JSON.parse(data);
+            console.log(patientData.patientQA);
             $('#firstName_view').val(patientData.patient.first_name).prop('readonly', true);
             $('#surName_view').val(patientData.patient.surname).prop('readonly', true);
             $('#dateOfBirth_view').val(patientData.patient.formatted_date_of_birth).prop('readonly', true);
             $('#age_view').val(patientData.patient.age).prop('readonly', true);
             $('#totalScore_view').val(patientData.patient.total_score).prop('readonly', true);
             $('#patientId_view').val(patientData.patient.id);
+            $('#patientId').val(patientData.patient.id);
             $('#QA-div').empty(); // Clear existing questions
-            alert(patientData.patientQA.question_text)
             patientData.patientQA.forEach(function(question) {
-              alert(question.question_text);
-              $('#QA-div').append('<div>' + question.question_text + '</div>');
+              $('#QA-div').append("<div class='form-group row'><label class='control-label col-sm-6 align-self-center mb-0' for='question1'>" + question.question_text + "</label><div class='col-sm-6'><input type='number' class='form-control number-field calculateScore' value=" + question.score+ " readonly></div></div></div>");
             });
             $('#patientModal').modal('show');
           }
         });
 
       });
-      $(document).on('click', '#editButton', function() {
-        var id = $(this).data('id');
-        $.ajax({
-          url: 'view_patient.php',
-          method: 'GET',
-          data: {
-            id: id
-          },
-          success: function(data) {
-            var patient = JSON.parse(data);
-            $('#firstName').val(patient.first_name);
-            $('#surName').val(patient.surname)
-            $('#dateOfBirth').val(patient.date_of_birth);
-            $('#age').val(patient.age);
-            $('#totalScore').val(patient.total_score);
-            $('#patientId').val(patient.id);
-          }
-        });
-      });
+      
 
       $('.delete-btn').click(function() {
         if (confirm('Are you sure you want to delete this record?')) {
@@ -478,7 +437,8 @@ $patients = $controller->getAllPatients();
               id: id
             },
             success: function(response) {
-              location.reload();
+              console.log(response);
+              //location.reload();
             }
           });
         }
@@ -491,24 +451,45 @@ $patients = $controller->getAllPatients();
           method: 'POST',
           data: $(this).serialize(),
           success: function(response) {
-            $('#editModal').modal('hide');
             location.reload();
           }
         });
       });
-
-      $('#filterForm').submit(function(e) {
-        e.preventDefault();
-        var firstName = $(this).data('firstName');
+      $('#edit').click(function() {
+            $('#editForm :input').removeAttr('disabled');
+            $('#editForm').find(':input').prop('readonly', false);
+            $('#edit').hide()
+            $('#editButton').show()
+          });
+          
+          $('#search').click(function() {
+        var firstName = $('#name-search').val();
         $.ajax({
           url: 'search_patient.php',
-          method: 'GET',
+          method: 'POST',
           data: {
             firstName: firstName
           },
           success: function(data) {
-            // Update the table with search results
-            $('#user-list-table tbody').html(data);
+            
+            var patientData = JSON.parse(data);
+            console.log(patientData);
+            $('#user-list-table tbody').empty();
+          var newTbody = $('<tbody></tbody>');
+            patientData.forEach(function(question) {
+              var row = $('<tr></tr>');
+        row.append('<td>' + question.formatted_created_at + '</td>');
+        row.append('<td>' + question.first_name + '</td>');
+        row.append('<td>' + question.surname + '</td>');
+        row.append('<td>' + question.age + '</td>');
+        row.append('<td>' + question.formatted_date_of_birth + '</td>');
+        row.append('<td>' + question.total_score + '</td>');
+        row.append("<td> <div class='flex align-items-center list-user-action'> <a class='iq-bg-primary' data-toggle='modal' data-target='#viewModal' data-placement='top' title='' data-original-title='View' data-id='" + question.id + "'id='viewButton' href='#''><i class='ri-eye-line'></i></a> <a class='iq-bg-primary delete-btn' data-toggle='tooltip' data-id='"+question.id +"'data-placement='top' title='' data-original-title='Delete' href='#''><i class='ri-delete-bin-line'></i></a> </td>");
+        
+        newTbody.append(row);
+            });
+
+            $('#user-list-table tbody').replaceWith(newTbody);
           },
           error: function(xhr, status, error) {
             // Handle error
