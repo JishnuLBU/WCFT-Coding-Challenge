@@ -18,3 +18,6 @@ For Patient form (Neuro Modulation) open any browser and type http://localhost/W
 For Patient form (Neuro Modulation) open any browser and type http://localhost/WCFT-Coding-Challenge/views/admin_home.php.php.
 
 For admin login details Email=admin@test.com and Password=Admin@1
+
+# 7.For Video Demo
+http://localhost/WCFT-Coding-Challenge/WCFT- Coding Challenge Video Record.webm
